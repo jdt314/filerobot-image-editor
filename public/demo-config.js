@@ -163,6 +163,8 @@ const config = {
   // shadowOpacity: 1,
   // opacity: 1,
   // },
+  // 关闭翻译
+  useBackendTranslations: false,
   [TOOLS.CROP]: {
     // maxWidth: 700,
     // maxHeight: 300,
@@ -285,7 +287,12 @@ const config = {
     // },
     // hideTextWatermark: true,
     gallery: [
-      'https://assets.scaleflex.com/Marketing/Logos/Scaleflex+Logos/PNG/SCALEFLEX+LOGO+-+Color+Dark+text.png?vh=45cac1',
+      {
+        url: 'https://assets.scaleflex.com/Marketing/Logos/Scaleflex+Logos/PNG/SCALEFLEX+LOGO+-+Color+Dark+text.png?vh=45cac1',
+        previewUrl: 'https://assets.scaleflex.com/Marketing/Logos/Scaleflex+Logos/PNG/SCALEFLEX+LOGO+-+Color+Dark+text.png?vh=45cac1',
+        position: "bottom-right",
+        opacity: 0.9
+      },
       'https://assets.scaleflex.com/Marketing/Logos/Filerobot+Logos/Logo+with+Scaleflex/LOGOTYPE+WITH+SCALEFLEX-01-01.png?vh=76c5a7',
       'https://assets.scaleflex.com/Marketing/Logos/Filerobot+Logos/Logo+with+Scaleflex/LOGO+WITH+SCALEFLEX-01.png?vh=467711',
       'https://assets.scaleflex.com/Marketing/Logos/Filerobot+Logos/Logo+with+Scaleflex/LOGO+WITH+SCALEFLEX+ON+WHITE+BG.png?vh=7ae33c',

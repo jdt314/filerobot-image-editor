@@ -1,5 +1,5 @@
 /** External Dependencies */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ArrowRight, Point } from '@scaleflex/icons';
 
@@ -15,7 +15,6 @@ import {
 
 const PositionFields = ({ annotation, updateAnnotation }) => {
   const [position, setPosition] = useState(null);
-
   const { designLayer } = useStore();
 
   const changePosition = (newPositionStr) => {
@@ -25,8 +24,14 @@ const PositionFields = ({ annotation, updateAnnotation }) => {
     setPosition(newPositionStr);
   };
 
-  const positionsLength = AVAILABLE_POSITIONS.length;
+  // 添加位置字段监控
+  useEffect(() => {
+    if (annotation.pos) {
+      setPosition(annotation.pos);
+    }
+  }, []);
 
+  const positionsLength = AVAILABLE_POSITIONS.length;
   return AVAILABLE_POSITIONS.map((pos, i) => (
     <Fragment key={pos}>
       <StyledIconWrapper

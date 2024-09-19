@@ -2,6 +2,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Text from '@scaleflex/icons/text';
 import UploadOutline from '@scaleflex/icons/upload-outline';
+import mapPositionStringToPoint from 'utils/mapPositionStringToPoint';
 
 /** Internal Dependencies */
 import {
@@ -35,6 +36,7 @@ const Watermark = () => {
     dispatch,
     t,
     adjustments: { crop = {} },
+    designLayer,
   } = useStore();
   const isPhoneScreen = usePhoneScreen();
   const [isLoading, setIsLoading] = useState(false);
@@ -82,6 +84,8 @@ const Watermark = () => {
   const addImgWatermark = (loadedImg) => {
     const imgWidth = loadedImg.naturalWidth || loadedImg.width;
     const imgHeight = loadedImg.naturalHeight || loadedImg.height;
+
+    const { opacity, position } = loadedImg.dataset;
     const newImgScale =
       layerHeight > layerWidth
         ? (layerHeight * watermarkImageRatio) / imgHeight
@@ -104,6 +108,19 @@ const Watermark = () => {
       name: TOOLS_IDS.IMAGE,
       replaceCurrent: true,
     };
+
+    // 添加水印透明度位置信息
+    if (opacity) scaledWatermarkImg.opacity = Number(opacity);
+    if (position) {
+      scaledWatermarkImg.pos = position;
+      const { x: px, y: py } = mapPositionStringToPoint(
+        scaledWatermarkImg,
+        designLayer,
+        position,
+      );
+      scaledWatermarkImg.x = px;
+      scaledWatermarkImg.y = py;
+    }
 
     dispatch({
       type: SET_ANNOTATION,

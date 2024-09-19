@@ -21,6 +21,7 @@ const WatermarksGallery = ({
     [annotations[WATERMARK_ANNOTATION_ID]],
   );
 
+  // 添加水印透明度位置信息
   const getWatermarkImgAndSelect = (e) => {
     const watermarkImgEl = e.currentTarget.children[0];
     if (watermarkImgEl.complete) {
@@ -59,7 +60,7 @@ const WatermarksGallery = ({
             className="FIE_watermark-selected-item"
             onClick={(e) =>
               isSameUrl
-                ? getWatermarkImgAndSelect(e)
+                ? getWatermarkImgAndSelect(e, watermark)
                 : loadAndSetWatermarkImg(watermarkUrl)
             }
             key={watermarkUrl}
@@ -70,6 +71,8 @@ const WatermarksGallery = ({
               alt="Failed to load."
               crossOrigin="Anonymous"
               draggable={false}
+              data-position={watermark.position || ''}
+              data-opacity={watermark.opacity || ''}
             />
           </StyledWatermarkGalleryItem>
         );
